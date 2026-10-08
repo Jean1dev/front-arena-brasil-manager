@@ -17,19 +17,29 @@ O painel não cadastra administradores nem faz reservas.
 ## Rodando
 
 ```sh
-# 1. API (no repositório arena-brasil-scheduler-api)
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # tsc + vite build → dist/
+```
+
+### Qual API o painel usa
+
+| `VITE_API_URL` | API usada |
+|---|---|
+| não definida (padrão) | produção: `https://arena-brasil-scheduler-api-production.up.railway.app` |
+| `""` (vazia) | mesma origem: em dev, o Vite repassa `/api` para a API local em `http://localhost:8080` |
+| qualquer URL | essa URL |
+
+Por padrão, inclusive no `npm run dev`, o navegador chama a API de produção direto, então a origem
+do front (ex.: `http://localhost:3000`) precisa estar em `CORS_ALLOWED_ORIGINS` da API.
+
+Para desenvolver contra a API local:
+
+```sh
+# no repositório arena-brasil-scheduler-api
 docker compose up -d --build
 # crie o primeiro admin com scripts/create-admin.sh (veja o README da API)
 
-# 2. Front
-npm install
-npm run dev        # http://localhost:3000
-```
-
-Em desenvolvimento o Vite faz proxy de `/api` para `http://localhost:8080`, então não é preciso
-configurar CORS. Em produção, defina `VITE_API_URL` com a URL da API (ex.: `https://api.arena.com`)
-e inclua a origem do front em `CORS_ALLOWED_ORIGINS` da API.
-
-```sh
-npm run build      # tsc + vite build → dist/
+# neste repositório
+VITE_API_URL= npm run dev
 ```
