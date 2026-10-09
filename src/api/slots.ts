@@ -10,6 +10,7 @@ export const useCourtSlots = (courtId: string | undefined, from: string, to: str
     queryKey: ["slots", courtId, from, to],
     queryFn: () => fetchSlots(courtId!, from, to),
     enabled: !!courtId,
+    refetchInterval: 60_000,
   });
 
 export const useSlotsForCourts = (courtIds: string[], from: string, to: string) =>
@@ -17,5 +18,6 @@ export const useSlotsForCourts = (courtIds: string[], from: string, to: string) 
     queries: courtIds.map((id) => ({
       queryKey: ["slots", id, from, to],
       queryFn: () => fetchSlots(id, from, to),
+      refetchInterval: 60_000,
     })),
   });

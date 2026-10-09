@@ -29,3 +29,13 @@ export const longDate = (key: string) => capitalize(format(parseISO(key), "EEEE,
 
 /** "2026-10-12T18:00:00-03:00" → 18 (hora no fuso do servidor, lida do próprio texto). */
 export const slotHour = (iso: string) => Number(iso.slice(11, 13));
+
+/** "48999999999" → "(48) 99999-9999". */
+export function formatPhone(digits: string) {
+  const d = digits.replace(/\D/g, "");
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return digits;
+}
+
+export const whatsappLink = (digits: string) => `https://wa.me/55${digits.replace(/\D/g, "")}`;

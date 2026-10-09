@@ -47,7 +47,7 @@ export interface BusinessHours {
   days: Window[];
 }
 
-/** `AVAILABLE`, `MONTHLY` ou qualquer status futuro (tratar como indisponível). */
+/** `AVAILABLE`, `BOOKED`, `MONTHLY` ou qualquer status futuro (tratar como indisponível). */
 export interface Slot {
   start: string;
   end: string;
@@ -110,4 +110,30 @@ export type ErrorCode =
 export interface FieldError {
   field: string;
   message: string;
+}
+
+export type Sport = "BEACH_TENNIS" | "FOOTVOLLEY" | "BEACH_VOLLEYBALL";
+
+export interface BookingSlot {
+  start: string;
+  end: string;
+  priceCents: number;
+}
+
+/** Reserva avulsa feita pelo app público. */
+export interface Booking {
+  id: string;
+  courtId: string;
+  courtName: string;
+  date: string;
+  slots: BookingSlot[];
+  totalPriceCents: number;
+  name: string;
+  /** Só dígitos, com DDD (ex.: "48999999999"). */
+  whatsapp: string;
+  players: number | null;
+  notes: string;
+  sport: Sport | null;
+  status: string;
+  createdAt: string;
 }
