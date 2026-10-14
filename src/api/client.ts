@@ -1,6 +1,6 @@
 import type { FieldError } from "./types";
 
-const BASE_URL = (import.meta.env.VITE_API_URL ?? "https://arena-brasil-scheduler-api-production.up.railway.app/").replace(/\/$/, "");
+const BASE_URL = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
 
 const MESSAGES: Record<string, string> = {
   VALIDATION_ERROR: "Confira os campos destacados.",
